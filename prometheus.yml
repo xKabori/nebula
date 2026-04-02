@@ -1,0 +1,14 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'docker'
+    dns_sd_configs:
+      - names:
+          - 'tasks.auth-service'
+          - 'tasks.post-service'
+          - 'tasks.timeline-service'
+          - 'tasks.notification-service'
+          - 'tasks.media-service'
+        type: 'A'
+        port: 3000

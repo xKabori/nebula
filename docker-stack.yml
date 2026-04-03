@@ -71,39 +71,6 @@ services:
       placement:
         constraints:
           - node.role == manager
-  prometheus:
-    image: prom/prometheus:latest
-    command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-      - "--web.external-url=/prometheus"
-      - "--web.route-prefix=/prometheus"
-    volumes:
-      - /home/etudiant/nebula/prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - internal
-      - public
-    deploy:
-      placement:
-        constraints:
-          - node.role == manager
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.prometheus.rule=PathPrefix(`/prometheus`)"
-        - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
-
-  grafana:
-    image: grafana/grafana:latest
-    networks:
-      - internal
-      - public
-    deploy:
-      placement:
-        constraints:
-          - node.role == manager
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.grafana.rule=PathPrefix(`/grafana`)"
-        - "traefik.http.services.grafana.loadbalancer.server.port=3000"
 
   # --- MICROSERVICES ---
   auth-service:
